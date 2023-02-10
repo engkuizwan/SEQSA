@@ -1,0 +1,26 @@
+#project{
+    min-width: 250px;
+    min-height: 250px;
+}
+
+#listproject{
+    margin: 30px;
+}
+
+#maincard{
+    height: 60%;
+}
+
+#addproject{
+    width: 90%;
+    height: 90%; 
+    /* object-fit: cover; */
+        opacity: 0.3;
+}
+
+#buttonaddproject{
+    width: 300px;  
+    height: auto;  
+    text-align: center;
+    vertical-align: center;
+}

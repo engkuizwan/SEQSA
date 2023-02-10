@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\ModulController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\FunctionController;
 
@@ -24,6 +25,9 @@ use App\Http\Controllers\FunctionController;
 Route::get('/projectindex', [ProjectController::class, 'index'])->name('projectindex');
 Route::get('/project_add', [ProjectController::class, 'create'])->name('projectadd');
 
+
+// **************************************************** F  I  L  E  S ************************************************
+Route::get('modulindex/{projectId}', [ModulController::class, 'index'])->name('modulindex');
 
 
 // **************************************************** F  I  L  E  S ************************************************

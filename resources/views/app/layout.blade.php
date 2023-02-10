@@ -13,6 +13,10 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('asset/dist/css/adminlte.min.css') }}">
   <link rel="stylesheet" href="{{ asset('asset/plugins/sweetalert2/sweetalert2.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+  <link rel="stylrsheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  
+
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -62,42 +66,9 @@
 
 
 
-  <!-- general modal -->
-
-  <div class="modal fade" id='myModalGeneral'>
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3><span id='titlmyModalGeneral'></span></h3>
-        </div>
-
-        <div class="modal-body" >
-        <div id='span_addother'></div>
-        </div>
-
-        <div class="modal-footer">
-            <button id="footer_print" class="btn btn-primary">Cetak</button>
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-        </div>
-        
-      </div>
-
-    </div>
-  </div>
-
-
-
-  <script>
-  $("#footer_print").hide();
-  </script>
 
 
 
 
-  <!-- end general modal -->
 </body>
 </html>

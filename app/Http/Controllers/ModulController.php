@@ -1,23 +1,23 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Project;
+
+use App\Models\Modul;
 use Illuminate\Http\Request;
 
-class ProjectController extends Controller
+class ModulController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($projectId)
     {
         //
-        $d['title'] = 'Senarai Pelajar';
-        $d['model']  = Project::all();
-        // dd($d);
-       return view('project.senarai',$d);
+        $d['title'] = "Modul List";
+        // $d['model'] =  Modul::find($projectId);
+        return view('modul.senarai',$d);
     }
 
     /**
@@ -25,16 +25,9 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($view)
+    public function create()
     {
         //
-        $title = 'New Project';
-        // dd();
-        // $getNegeri = BankStatusHelper::getNegeri();
-
-        // return view('pelajar.index',compact('title','getNegeri'));
-        // return view('project.index',compact('title'));
-        return view('modal', compact('view'));
     }
 
     /**
