@@ -23,8 +23,15 @@ use App\Http\Controllers\FunctionController;
 
 // **************************************************** P  R  O  J  E  C  T ************************************************
 Route::get('/projectindex', [ProjectController::class, 'index'])->name('projectindex');
-Route::get('/project_add', [ProjectController::class, 'create'])->name('projectadd');
+Route::get('/create', [ProjectController::class, 'create']);
+// Route::get('/read', [ProjectController::class, 'read']);
+Route::post('/project_add', [ProjectController::class, 'store'])->name('projectstore');
 
+// **************************************************** P  R  O  J  E  C  T 2 ************************************************
+Route::resource('newproject', ProjectController::class);
+Route::get('/project_list', [ProjectController::class, 'read']);
+Route::get('/project_show/{projectid}', [ProjectController::class, 'show']);
+Route::post('/project_update/{projectid}', [ProjectController::class, 'update']);
 
 // **************************************************** F  I  L  E  S ************************************************
 Route::get('modulindex/{projectId}', [ModulController::class, 'index'])->name('modulindex');

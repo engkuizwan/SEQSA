@@ -2,16 +2,90 @@
 
 @section('content')
 
-<!-- <h1>Ini student index</h1> -->
-{{-- <form action="{{ route('pelajarstore') }}" method="post"> --}}
-<form action="" method="post">
-    @csrf
- 
-    @include('project.form')
+    
+    {{-- list --}}
+    <div class="mt-3" id="list"></div>
 
-    <button type="submit" class="btn btn-primary float-right">Hantar</button>
-  {{-- <a href="{{ route('pelajarindex') }}" class="btn btn-secondary float-right mr-2">Kembali</a> --}}
-  <a href="" class="btn btn-secondary float-right mr-2">Kembali</a>
-</form>
+
+    <script>
+
+      $(document).ready(function(){
+        read();
+      })
+
+      function read(){
+        $.get("{{ url('project_list') }}", {}, function(data,status){
+          $('#list').html(data);
+        });
+      }
+
+      function create(){
+        $.get("{{ route('newproject.create') }}", {}, function(data,status){
+          $('#page').html(data);
+          $('#modal').modal('show');
+          $('#modallable').html('Create Project');
+        });
+      }
+
+      function show(id){
+        // alert(id);
+        // var id1 = id;
+        $.get("{{ url('project_show') }}/"+id, {}, function(data,status){
+          $('#page').html(data);
+          $('#modal').modal('show');
+          $('#modallable').html('Update Project');
+        });
+      }
+
+      
+
+
+      function store(){
+            var name = $("#name").val();
+            $.ajax({
+                type: "post",
+                url: "{{route('newproject.store')}}",
+                data: {
+                "_token": "{{ csrf_token() }}",
+                "name" : name
+                },
+                success: function(data) {
+                $(".btn-close").click();
+                read();
+                }
+            });
+        }
+
+      // const form = document.getElementById('project_add');
+
+      // form.addEventListener('submit', function(event) {
+      //   event.preventDefault(); // prevent the form from submitting normally
+
+      //   const formData = new FormData(form); // get the form data
+
+      //   fetch('{{ route('projectstore') }}', {
+      //     method: 'POST',
+      //     body: formData
+      //   })
+      //   .then(response => {
+      //     if (response.ok) {
+      //       $(".btn-close").click();
+      //       console.log('Form submitted successfully!');
+      //     } else {
+      //       // handle error response
+      //       console.error('Error submitting form');
+      //     }
+      //   })
+      //   .catch(error => {
+      //     console.error('Error submitting form:', error);
+      //   });
+      // });
+
+
+
+
+
+
+    </script>
 
 @endsection

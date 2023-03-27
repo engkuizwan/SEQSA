@@ -1,6 +1,16 @@
 #project{
     min-width: 250px;
     min-height: 250px;
+    max-width: 20%;
+    display: inline-block;
+    flex: 1;
+    margin: 20px;
+}
+
+#list{
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
 }
 
 #listproject{
@@ -12,15 +22,18 @@
 }
 
 #addproject{
-    width: 90%;
-    height: 90%; 
-    /* object-fit: cover; */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
         opacity: 0.3;
 }
 
-#buttonaddproject{
-    width: 300px;  
-    height: auto;  
-    text-align: center;
+#buttonaddproject{  
+    /* height: auto;   */
+    width: 250px;
+    height: 250px;
+    align-items: center;
     vertical-align: center;
+    justify-content: center;
+    display: flex;
 }

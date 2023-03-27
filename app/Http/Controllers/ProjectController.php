@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Project;
+use App\Models\M_project;
 use Illuminate\Http\Request;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class ProjectController extends Controller
 {
@@ -14,10 +15,17 @@ class ProjectController extends Controller
     public function index()
     {
         //
-        $d['title'] = 'Senarai Pelajar';
-        $d['model']  = Project::all();
+        $d['title'] = 'PROJECT LIST';
+        $d['model']  = M_project::all();
         // dd($d);
-       return view('project.senarai',$d);
+       return view('project.index',$d);
+    }
+
+    public function read(){
+        
+        $data['model'] = M_project::all();
+        // dd($data);
+        return view('project.senarai', $data);
     }
 
     /**
@@ -25,16 +33,11 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($view)
+    public function create()
     {
         //
-        $title = 'New Project';
-        // dd();
-        // $getNegeri = BankStatusHelper::getNegeri();
-
-        // return view('pelajar.index',compact('title','getNegeri'));
-        // return view('project.index',compact('title'));
-        return view('modal', compact('view'));
+        
+        return view('project.form');
     }
 
     /**
@@ -45,7 +48,30 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        // echo '<pre>';
+        // print_r($_POST);
+        // echo '</pre>';
+        // die();
+  
+        $validate = $request->validate([
+            'project_name' => 'required',
+            'project_framework' => 'required',
+            'project_description' => 'required'
+        ],[
+            'project_name.required' => 'Please enter project name',
+            'project_framework.required' => 'Please enter project framework',
+            'project_description.required' => 'Please enter project description'
+        ]);
+        try {
+
+            M_project::create($validate);
+            return redirect(route('newproject.index'))->withSuccess('Data successfully inserted');
+        } catch (\Throwable $th) {
+
+            dd($th);
+            return back()->withError('Something when wrong!');
+        }
     }
 
     /**
@@ -56,7 +82,13 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+        // dd($id);
+        $d['project'] = M_project::find($id);
+        // $d['student2'] = Student::where(['student_religion'=> 'ISLAM'])->first();
+        // $d['gender'] = BankStatusHelper::getGender();
+        // dd($d);
+
+        return view('project.edit',$d);
     }
 
     /**
@@ -79,7 +111,29 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request);
+        $validate = $request->validate([
+            'project_name' => 'required',
+            'project_framework' => 'required',
+            'project_description' => 'required'
+        ],[
+            'project_name.required' => 'Please enter project name',
+            'project_framework.required' => 'Please enter project framework',
+            'project_description.required' => 'Please enter project description'
+        ]);
+        try {
+            $data= M_project::findOrFail($id);
+            $data->project_name= $request->project_name;
+            $data->project_framework= $request->project_framework;
+            $data->project_description = $request->project_description;
+            $data->save();
+            // $project->update($validate);
+            return redirect(route('newproject.index'))->withSuccess('Data successfully updated');
+        } catch (\Throwable $th) {
+
+            dd($th);
+            return back()->withError('Something when wrong!');
+        }
     }
 
     /**
@@ -91,5 +145,14 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         //
+        // dd($id);
+        try{
+
+            M_project::destroy($id);
+            return redirect(route('newproject.index'))->withSuccess('Berjaya Kemaskini');
+
+        }catch(\Throwable $th){
+
+        }
     }
 }
