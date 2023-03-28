@@ -17,9 +17,9 @@ use App\Http\Controllers\FunctionController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('index');
+});
 
 // **************************************************** P  R  O  J  E  C  T ************************************************
 Route::get('/projectindex', [ProjectController::class, 'index'])->name('projectindex');

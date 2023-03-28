@@ -2,9 +2,15 @@
 
 @section('content')
 
-    
+    <style>
+      .box-list{
+        overflow-y:auto;
+        min-height: 70%;
+        /* max-width: 20%; */
+      }
+    </style>
     {{-- list --}}
-    <div class="mt-3" id="list"></div>
+    <div class="box-list mt-3" id="list"></div>
 
 
     <script>

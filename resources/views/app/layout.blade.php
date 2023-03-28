@@ -21,11 +21,6 @@
   <script src="{{ asset('asset/plugins/jquery/jquery.min.js') }}"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-  {{-- SweetAlert2 --}}
-  <script src="{{ asset('asset/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  @yield('script')
-  @yield('script2')
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -57,8 +52,10 @@
 <script src="{{ asset('asset/dist/js/demo.js') }}"></script>
 {{-- Custom Js --}}
 <script src="{{ asset('asset/js/custom.js') }}" type="text/javascript" charset="utf-8"></script>
-<script src="{{ asset('asset/js/other.js') }}" type="text/javascript" charset="utf-8"></script>
-
+{{-- <script src="{{ asset('asset/js/other.js') }}" type="text/javascript" charset="utf-8"></script> --}}
+{{-- SweetAlert2 --}}
+<script src="{{ asset('asset/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+@yield('script')
 
 <!-- General Modal -->
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">

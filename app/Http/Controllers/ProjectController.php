@@ -122,11 +122,17 @@ class ProjectController extends Controller
             'project_description.required' => 'Please enter project description'
         ]);
         try {
-            $data= M_project::findOrFail($id);
-            $data->project_name= $request->project_name;
-            $data->project_framework= $request->project_framework;
-            $data->project_description = $request->project_description;
-            $data->save();
+            // $data= M_project::findOrFail($id);
+            // $data->project_name= $request->project_name;
+            // $data->project_framework= $request->project_framework;
+            // $data->project_description = $request->project_description;
+            // $data->save();
+
+            M_project::where('projectID', $id)->update([
+                'project_name' => $request->project_name,
+                'project_description' => $request->project_description,
+                'project_framework' => $request->project_framework
+            ]);
             // $project->update($validate);
             return redirect(route('newproject.index'))->withSuccess('Data successfully updated');
         } catch (\Throwable $th) {

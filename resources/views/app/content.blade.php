@@ -3,7 +3,7 @@
 
         <!-- Default box -->
         <div class="card" id="maincard"  >
-          <div class="card-header">
+          {{-- <div class="card-header">
             <h3 class="card-title"></h3>
   
             <div class="card-tools">
@@ -14,14 +14,14 @@
                 <i class="fas fa-times"></i>
               </button>
             </div>
-          </div>
-          <div class="card-body">
+          </div> --}}
+          <div  style="min-height: 70%">
               @yield('content')
           </div>
           <!-- /.card-body -->
-          <div class="card-footer">
+          {{-- <div class="card-footer">
             Footer
-          </div>
+          </div> --}}
           <!-- /.card-footer-->
         </div>
         <!-- /.card -->
