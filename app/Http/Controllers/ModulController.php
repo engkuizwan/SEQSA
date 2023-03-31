@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\File;
 use App\Models\Modul;
 use Illuminate\Http\Request;
 
@@ -14,9 +15,12 @@ class ModulController extends Controller
      */
     public function index($projectId)
     {
-        //
-        $d['title'] = "Modul List";
-        // $d['model'] =  Modul::find($projectId);
+        $d['project_id']=$projectId = decrypt($projectId);
+        $d['title'] = "Modul & File";
+        $d['modul'] =  Modul::filter($projectId)->get();
+        $d['file'] = File::filter($projectId)->get();
+        // dd($d['file']);
+        
         return view('modul.senarai',$d);
     }
 
@@ -28,6 +32,7 @@ class ModulController extends Controller
     public function create()
     {
         //
+        return view('modul.form');
     }
 
     /**
@@ -38,7 +43,33 @@ class ModulController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $validate = $request->validate([
+        //     'modul_name' => 'required',
+        //     'project_framework' => 'required',
+        //     'project_description' => 'required'
+        // ],[
+        //     'project_name.required' => 'Please enter project name',
+        //     'project_framework.required' => 'Please enter project framework',
+        //     'project_description.required' => 'Please enter project description'
+        // ]);
+        // dd($request->project_id);
+        $modul = new Modul;
+        try {
+
+            // $modul->modul_name = $request->modul_name;
+            // $modul->project_id = $request->project_id;
+            // $modul->save();
+
+            Modul::create([
+                'modul_name' => $request->modul_name,
+                'project_id' => $request->project_id
+            ]);
+            return redirect(route('modulindex', encrypt($request->project_id)))->withSuccess('Data successfully inserted');
+        } catch (\Throwable $th) {
+
+            dd($th);
+            return back()->withError('Something when wrong!');
+        }
     }
 
     /**
@@ -49,7 +80,11 @@ class ModulController extends Controller
      */
     public function show($id)
     {
-        //
+        
+        $d['modul'] = modul::find($id);
+        $d['show'] = 1;
+
+        return view('modul.form',$d);
     }
 
     /**
@@ -60,7 +95,10 @@ class ModulController extends Controller
      */
     public function edit($id)
     {
-        //
+        $d['modul'] = modul::find($id);
+        $d['edit'] = 1;
+
+        return view('modul.form',$d);
     }
 
     /**
@@ -72,7 +110,16 @@ class ModulController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $modul = Modul::find($id);
+            $modul->modul_name = $request->modul_name;
+            $modul->save();
+            return redirect(route('modulindex', encrypt($modul->project_id)))->withSuccess('Data successfully inserted');
+        } catch (\Throwable $th) {
+
+            dd($th);
+            return back()->withError('Something when wrong!');
+        }
     }
 
     /**
@@ -81,8 +128,17 @@ class ModulController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        $projectId = $request->input('project_id');
+        try{
+
+            // File::destroy($id);
+            Modul::where('modul_id','=',$id)->delete();
+            return redirect(route('moduleindex',$projectId))->withSuccess('Berjaya Kemaskini');
+
+        }catch(\Throwable $th){
+
+        }
     }
 }

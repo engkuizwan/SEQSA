@@ -25,6 +25,7 @@ class FileController extends Controller
     public function create()
     {
         //
+        return view('file.form');
     }
 
     /**
@@ -35,7 +36,23 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        // $file = new File;
+        try {
+
+            // $file->file_name = $request->file_name;
+            // $file->projectID = $request->project_id;
+            // $file->save();
+            File::create([
+                'file_name' => $request->file_name,
+                'projectID' => $request->project_id,
+            ]);
+            return redirect(route('modulindex', encrypt($request->project_id)))->withSuccess('Data successfully inserted');
+        } catch (\Throwable $th) {
+
+            dd($th);
+            return back()->withError('Something when wrong!');
+        }
     }
 
     /**
@@ -44,9 +61,12 @@ class FileController extends Controller
      * @param  \App\Models\File  $file
      * @return \Illuminate\Http\Response
      */
-    public function show(File $file)
+    public function show($id)
     {
-        //
+        $d['file'] = File::find($id);
+        $d['show'] = 1;
+
+        return view('file.form',$d);
     }
 
     /**
@@ -55,9 +75,12 @@ class FileController extends Controller
      * @param  \App\Models\File  $file
      * @return \Illuminate\Http\Response
      */
-    public function edit(File $file)
+    public function edit($id)
     {
-        //
+        $d['file'] = File::find($id);
+        $d['edit'] = 1;
+
+        return view('file.form',$d);
     }
 
     /**
@@ -67,9 +90,18 @@ class FileController extends Controller
      * @param  \App\Models\File  $file
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, File $file)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $file = File::find($id);
+            $file->file_name = $request->file_name;
+            $file->save();
+            return redirect(route('modulindex', encrypt($file->projectID)))->withSuccess('Data successfully inserted');
+        } catch (\Throwable $th) {
+
+            dd($th);
+            return back()->withError('Something when wrong!');
+        }
     }
 
     /**
@@ -78,8 +110,18 @@ class FileController extends Controller
      * @param  \App\Models\File  $file
      * @return \Illuminate\Http\Response
      */
-    public function destroy(File $file)
+    public function destroy(Request $request, $id)
     {
-        //
+        $projectId = $request->input('project_id');
+        // dd($id);
+        try{
+
+            // File::destroy($id);
+            File::where('file_ID','=',$id)->delete();
+            return redirect(route('moduleindex',$projectId))->withSuccess('Berjaya Kemaskini');
+
+        }catch(\Throwable $th){
+
+        }
     }
 }
