@@ -1,169 +1,70 @@
-$(document).on("click", ".btnsaveajaxfile", function(e) {
+$('.buttonsaveajax').click(function(event) {
+    // alert('test');
+    var message1 
+    var form = $(this).parents('form');
 
-
-    e.preventDefault();
-    e.stopPropagation();
-
-
-
-
-    var idform = $(this).data("idform");
-
-    var confirmcustom = $(this).data("confirmcustom");
-    var confirmtitle = $(this).data("confirmtitle");
-    var goto=   $(this).data('goto');
-
-
-    
-    if(confirmcustom){
-
-        $confirmcustom=  "'" + confirmcustom + "'";
+    if($(this).data('message1') == null){
+      message1 = 'Are you sure?';
     }else{
-        confirmcustom='Adakah anda pasti?';
+      message1 = $(this).data('message1');
     }
-   
 
+    var message2 = $(this).data('message2');
 
-    if(confirmtitle){
-
-        $confirmtitle=  "'" + confirmtitle + "'";
-    }else{
-        confirmtitle='Adakah anda pasti?';
-    }
-   
-
-    var buttonmu = $(this).val();
-
-    var input = $("<input>")
-        .attr("type", "hidden")
-        .attr("name", "status-simpan").val(buttonmu);
-    $("#" + idform).append(input);
-
-    var form = $("#" + idform);
-
-
-
-
+    event.preventDefault();
     Swal.fire({
-        title: confirmtitle,
-        text: confirmcustom,
-        icon: 'info',
-        showCancelButton: true,
+        title: message1,
+        text: message2,
+        icon: 'warning',
+        showDenyButton: true,
         confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Ya',
-        cancelButtonText: 'Tidak'
+        denyButtonColor: '#d33',
+        denyButtonText: 'No',
+        confirmButtonText: 'Yes',
+        reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
-
-
+        // disable the button to prevent multiple clicks
+        $(this).attr('disabled', true);
         
-
-
-            Swal.fire({
-                // position: 'top-end',
-                // icon: 'info',
-                title: 'Sila Tunggu',
-                icon: 'warning',
-                showConfirmButton: false,
-                allowOutsideClick: false,
-                allowEscapeKey: false
-
-            })
-
-          
-            var formData2 = new FormData(document.getElementById(idform));
-            var actionUrl = form.attr('action');
+        // submit the form using AJAX
+        $.ajax({
+          url: form.attr('action'),
+          type: 'POST',
+          data: form.serialize(),
+          success: function(response) {
+            // show the success message
+            Swal.fire(
+              'Successfull',
+              'Project have been moved to archive',
+              'success'
+            );
             
-            var request = $.ajax({
-            //     headers: {
-            //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            // },
-            enctype: 'multipart/form-data',
-            processData: false,
-            contentType: false,
-            cache: false,
-                url: actionUrl,
-                method: "POST",
-                data: formData2, // Must Include CSRF Token Input in Form
-            });
-
-            request.success(function( data ) {
-
-                    
-                    var datanow = JSON.parse(data);
-                    var statuserror=datanow.error;
-                    var status=datanow.status;
-
-                    console.log(status);
-                    $('.erromsgcs').remove();
-                    $('.form-group').removeClass('has-error')
-                    if(statuserror==true){
-                      
-                      
-
-                        $.each(datanow.selector, function(key, msg) {
-                            console.log(key);
-                            if(msg) {
-
-                                var sel="#"+idform+" textarea[name='"+key+"'],input[name='"+key+"'],select[name='"+key+"'],checkbox[name='"+key+"'],radio[name='"+key+"']";
-                                $(sel).closest('.form-group').removeClass('has-success').addClass('has-error');
-                            
-                                var span='<span class="help-block erromsgcs">'+msg+' </span>';
-
-                                $(span).insertAfter( $("input,select,textarea").closest(sel) );
-                            
-                            }
-                            
-
-                
-                            
-
-
-                        });
-                        swal.close();
-
-                  
-
-                        
-                    }else if(status==true){
-
-                        var id=datanow.id;
-                        window.location.href =site_url+goto+'/'+id;
-
-                        // console.log(goto);
-
-                        var mytbl = $("#groups").dataTable();
-                        mytbl.fnDraw();
-
-                        swal.close();
-                        // $('#myModalGeneral').modal('toggle')
-                        $('#myModalGeneral').modal('hide');
-                        Swal.fire({
-                            // position: 'top-end',
-                            // icon: 'info',
-                            title: 'succeeded',
-                            icon: 'success',
-                          
-                        });
-                        // location.reload();
-
-                    }
-
-                // if ( console && console.log ) {
-                // //   console.log( "Sample of data:", data );
-                // //   console.log( statuserror);
-                // }
-              });
-        
-    
-
+            // reload the page after a short delay
+            setTimeout(function() {
+              // alert('test');
+              location.reload();
+              // read();
+            }, 2000);
+          },
+          error: function(xhr) {
+            // show an error message
+            Swal.fire(
+              'Error',
+              'The form could not be submitted',
+              'error'
+            );
+            
+            // re-enable the button
+            $(this).attr('disabled', false);
+          }
+        });
+        } else if (result.isDenied) {
+            Swal.fire(
+            'Tindakan Dibatalkan',
+            'Tiada tindakan dilakukan',
+            'error'
+            )
         }
     })
-
-
-
-
-
-
 });
