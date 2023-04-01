@@ -42,6 +42,9 @@ Route::get('/modul_show/{modul_id}', [ModulController::class, 'show']);
 
 // **************************************************** F  L  O  W ************************************************
 Route::get('flowindex/{modul_id}', [FlowController::class, 'index'])->name('flowindex');
+Route::get('/flow_senarai/{modul_id}', [FlowController::class, 'read']);
+Route::resource('flow', FlowController::class);
+
 
 // **************************************************** F  I  L  E  S ************************************************
 Route::get('/fileindex', [FileController::class, 'index'])->name('fileindex');
