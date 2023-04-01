@@ -6,6 +6,7 @@ use App\Http\Controllers\FlowController;
 use App\Http\Controllers\ModulController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\FunctionController;
+use App\Http\Controllers\UserDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,9 @@ use App\Http\Controllers\FunctionController;
 Route::get('/', function () {
     return view('index');
 });
+
+// **************************************************** U S E R P R O F I L E************************************************
+Route::resource('/userdetail', UserDetailController::class);
 
 // **************************************************** P  R  O  J  E  C  T ************************************************
 Route::get('/projectindex', [ProjectController::class, 'index'])->name('projectindex');
