@@ -175,10 +175,8 @@
 
           <li class="nav-item">
             <a href="{{route('projectindex')}}" class="nav-link">
-              <i class="fa fa-users" aria-hidden="true"></i>
-              <p>
-                PROJECTS
-              </p>
+              <i class="fa fa-briefcase" style="color: #ffffff;"></i>
+              <p>PROJECT</p>
             </a>
           </li>
 
@@ -186,10 +184,8 @@
 
           <li class="nav-item">
             <a href="{{url('/')}}" class="nav-link">
-              <i class="fa fa-users" aria-hidden="true"></i>
-              <p>
-                TEAMS
-              </p>
+              <i class="fa fa-users" aria-hidden="true" style="color: #ffffff;"></i>
+              <p>TEAM</p>
             </a>
           </li>
 

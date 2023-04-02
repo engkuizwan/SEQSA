@@ -66,7 +66,7 @@
 
     @foreach ( $model as $project )
       <div class="card" id="project">
-        <a href="{{ route('modulindex',$project->projectID) }}">
+        <a href="{{ route('modulindex', encrypt($project->projectID)) }}">
         <img class="card-img-top" src="">
           <div class="card-body">
             <h5 class="card-title">{{ $project->project_name }}</h5>

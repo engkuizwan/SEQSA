@@ -21,6 +21,21 @@
   <script src="{{ asset('asset/plugins/jquery/jquery.min.js') }}"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <!-- DataTables  & Plugins -->
+  <script src="{{asset('asset/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+  <script src="{{asset('asset/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+  <script src="{{asset('asset/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+  <script src="{{asset('asset/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+  <script src="{{asset('asset/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+  <script src="{{asset('asset/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+  <script src="{{asset('asset/plugins/jszip/jszip.min.js')}}"></script>
+  <script src="{{asset('asset/plugins/pdfmake/pdfmake.min.js')}}"></script>
+  <script src="{{asset('asset/plugins/pdfmake/vfs_fonts.js')}}"></script>
+  <script src="{{asset('asset/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+  <script src="{{asset('asset/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+  <script src="{{asset('asset/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+    
+  
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -57,6 +72,7 @@
 <script src="{{ asset('asset/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 @yield('script')
 
+
 <!-- General Modal -->
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -71,8 +87,6 @@
     </div>
   </div>
 </div>
-
-
 
 
 

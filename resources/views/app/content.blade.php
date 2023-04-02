@@ -2,7 +2,8 @@
     <section class="content">
 
         <!-- Default box -->
-        <div class="card" id="maincard"  >
+        {{$card??"" == 1? "<div class='card' id='maincard'>":""}}
+        
           {{-- <div class="card-header">
             <h3 class="card-title"></h3>
   
@@ -23,7 +24,8 @@
             Footer
           </div> --}}
           <!-- /.card-footer-->
-        </div>
+        {{$card??"" == 1?"</div>":""}}
+        
         <!-- /.card -->
   
       </section>
