@@ -1,12 +1,19 @@
 $('.buttonsaveajax').click(function(event) {
     // alert('test');
     var message1 
+    var message3 
     var form = $(this).parents('form');
 
     if($(this).data('message1') == null){
       message1 = 'Are you sure?';
     }else{
       message1 = $(this).data('message1');
+    }
+
+    if($(this).data('message3') == null){
+      message3 = 'Success?';
+    }else{
+      message3 = $(this).data('message3');
     }
 
     var message2 = $(this).data('message2');
@@ -36,7 +43,7 @@ $('.buttonsaveajax').click(function(event) {
             // show the success message
             Swal.fire(
               'Successfull',
-              'Project have been moved to archive',
+              message3,
               'success'
             );
             
