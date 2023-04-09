@@ -2,21 +2,24 @@
 
 @section('content')
 
-    <style>
-      .box-list{
-        overflow-y:auto;
-        min-height: 70%;
-        /* max-width: 20%; */
-      }
-    </style>
-    {{-- list --}}
-    <div class="box-list mt-3" id="list"></div>
 
+    {{-- list --}}
+    <div id="list">
+      
+    </div>
+    
+    <input type="hidden" name="user_role" value="{{$user[0]->role??""}}" id="user_role">
+    <input type="hidden" name="user_id" value="{{$user[0]->id??""}}" id="user_id">
 
     <script>
 
       $(document).ready(function(){
-        read();
+        if($('#user_role').val() == 1){
+          readuser($('#user_id').val());
+        }else if($('#user_role').val() == 0){
+          read();
+        }
+        // read();
       })
 
       function read(){
@@ -61,6 +64,12 @@
                 }
             });
         }
+
+        function readuser(project_id){
+        $.get("{{ url('project_list') }}/"+project_id, {}, function(data,status){
+          $('#list').html(data);
+        });
+      }
 
       // const form = document.getElementById('project_add');
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\M_project;
+use App\Models\User;
 use Illuminate\Http\Request;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
@@ -16,10 +17,11 @@ class ProjectController extends Controller
     {
         //
         $d['title'] = 'PROJECT LIST';
-        $d['model']  = M_project::all();
         // dd($d);
        return view('project.index',$d);
     }
+
+    
 
     public function read(){
         
@@ -160,5 +162,60 @@ class ProjectController extends Controller
         }catch(\Throwable $th){
 
         }
+    }
+
+    public function indexuser($id)
+    {
+        //
+
+        $d['title'] = 'PROJECT LIST';
+        $project = M_project::all();
+        $project_id = array();
+
+        foreach ($project as $item) {
+            $user_id = json_decode($item->user_id);
+            if($user_id){
+                foreach ($user_id as $key => $item2) {
+                    if($item2==$id){
+                        array_push($project_id,$item->projectID);
+                        
+                    }
+                }
+            }
+        }
+
+        
+
+        // dd($project_id);
+        $d['user'] = User::where(['id' => $id])->get();
+        // dd($d);
+        $d['project']  = M_project::whereIn('projectID', $project_id)->get();
+        // dd($d['project']);
+       return view('project.index',$d);
+    }
+
+    public function readuser($user_id){
+        // dd($user_id);
+        $project = M_project::all();
+        $project_id = array();
+
+        foreach ($project as $item) {
+            $all_user_id = json_decode($item->user_id);
+            if($all_user_id){
+                foreach ($all_user_id as $key => $item2) {
+                    if($item2==$user_id){
+                        array_push($project_id,$item->projectID);
+                        
+                    }
+                }
+            }
+        }
+
+        
+
+        // dd($project_id);
+        $d['model']  = M_project::whereIn('projectID', $project_id)->get();
+        // dd($d['model']);
+       return view('project.senarai',$d);
     }
 }

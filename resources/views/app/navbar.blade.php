@@ -174,7 +174,7 @@
            {{-- LIST SIDE NAVIGATION --}}
 
           <li class="nav-item">
-            <a href="{{route('projectindex')}}" class="nav-link">
+            <a href="{{route('project.admin')}}" class="nav-link">
               <i class="fa fa-briefcase" style="color: #ffffff;"></i>
               <p>PROJECT</p>
             </a>

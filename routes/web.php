@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\FlowController;
 use App\Http\Controllers\ModulController;
@@ -19,24 +21,40 @@ use App\Http\Controllers\UserDetailController;
 |
 */
 
-Route::get('/', function () {
+
+Route::match(['get', 'head'], '/', function () {
     return view('index');
 });
+
+
+
+// **************************************************** A  U  T  H  E  N  T  I  C  A  T  E************************************************
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // **************************************************** U S E R P R O F I L E************************************************
 Route::resource('/userdetail', UserDetailController::class);
 
 // **************************************************** P  R  O  J  E  C  T ************************************************
-Route::get('/projectindex', [ProjectController::class, 'index'])->name('projectindex');
+
 Route::get('/create', [ProjectController::class, 'create']);
 // Route::get('/read', [ProjectController::class, 'read']);
 Route::post('/project_add', [ProjectController::class, 'store'])->name('projectstore');
+
+Route::prefix('project') ->group(function(){
+    Route::match(['get', 'head'],'/list', [ProjectController::class, 'index'])->name('project.admin');
+    Route::get('/list/{user_id}', [ProjectController::class, 'indexuser'])->name('project.user');
+});
+
+// Route::middleware(['auth','user-role:1'])->group(function(){
+// });
 
 // **************************************************** P  R  O  J  E  C  T 2 ************************************************
 Route::resource('newproject', ProjectController::class);
 Route::get('/project_list', [ProjectController::class, 'read']);
 Route::get('/project_show/{projectid}', [ProjectController::class, 'show']);
 Route::post('/project_update/{projectid}', [ProjectController::class, 'update']);
+Route::get('/project_list/{user_id}', [ProjectController::class, 'readuser']);
 
 // **************************************************** M O  D  U  L  S ************************************************
 Route::get('modulindex/{projectId}', [ModulController::class, 'index'])->name('modulindex');
@@ -47,6 +65,9 @@ Route::get('/modul_show/{modul_id}', [ModulController::class, 'show']);
 // **************************************************** F  L  O  W ************************************************
 Route::get('flowindex/{modul_id}', [FlowController::class, 'index'])->name('flowindex');
 Route::get('/flow_senarai/{modul_id}', [FlowController::class, 'read']);
+Route::get('flow_create/{modul_id}', [FlowController::class, 'create'])->name('flow_create');
+Route::get('/flow_show/{flow_id}', [FlowController::class, 'show']);
+Route::get('/flow_edit/{flow_id}', [FlowController::class, 'edit']);
 Route::resource('flow', FlowController::class);
 
 
@@ -61,3 +82,7 @@ Route::get('/file_show/{file_id}', [FileController::class, 'show']);
 
 // **************************************************** F  U  N  C  T  I  O  N  S ************************************************
 Route::get('/functionindex', [FunctionController::class, 'index'])->name('functionindex');
+
+// Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

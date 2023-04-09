@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\userDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserDetailController extends Controller
 {
@@ -144,6 +146,21 @@ class UserDetailController extends Controller
         }catch(\Throwable $th){
             return back()->withError('Something when wrong!');
         }
+
+    }
+
+    public function login(Request $request){
+        $check = $request->all();
+        dd($check);
+
+        if(Auth()->user->role == 0){
+            return redirect()->route('projectindex')->with('error','Account created successfully');
+        }
+
+        if(Auth()->user->role == 1){
+            return redirect()->route('projectindex.admin')->with('error','Account created successfully');
+        }
+
 
     }
 }

@@ -11,7 +11,7 @@ class Flow extends Model
 {
     use HasFactory,SoftDeletes;
     protected $table = 'flow';
-    protected $primarykey = 'flow_id';
+    protected $primaryKey = 'flow_id';
     protected $fillable = [
         'flow_name','modul_id'
     ];
