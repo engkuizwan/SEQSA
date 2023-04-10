@@ -9,6 +9,7 @@ use App\Http\Controllers\ModulController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\FunctionController;
 use App\Http\Controllers\UserDetailController;
+use App\Http\Controllers\UserprofileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,3 +87,7 @@ Route::get('/functionindex', [FunctionController::class, 'index'])->name('functi
 // Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// ****************************************************  U S E R  P R O F I L E ************************************************
+Route::resource('/userprofile', UserprofileController::class);
+// Route::post('/register', [UserprofileController::class,'create'])->name('register');

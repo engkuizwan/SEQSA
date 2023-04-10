@@ -100,6 +100,9 @@ img {
             <a href="forgot-password.html">I forgot my password</a>
             </p>
 
+            <p class="mb-1">
+                <a type="submit" href="{{route('userprofile.create')}}">Register account</a>
+            </p>
         </div>
     </div>
 
