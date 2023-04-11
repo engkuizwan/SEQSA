@@ -67,7 +67,7 @@ class UserprofileController extends Controller
                 'user_name'=>$request->user_name,
                 'user_password'=> Hash::make($request->user_password),
             ]);
-            return redirect(route('login'))->withSuccess('Berjaya dikemaskini');
+            return redirect(route('index'))->withSuccess('Berjaya dikemaskini');
         }catch(\Throwable $th){
             return back()->withError('Something when wrong!');
         }
