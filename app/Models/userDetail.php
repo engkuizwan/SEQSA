@@ -11,9 +11,9 @@ class userDetail extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'user';
-    protected $primaryKey = 'userID';
-    protected $fillable = ['name','user_name','user_role','user_email','user_password'];
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+    protected $fillable = ['name','user_role','user_email','user_name','user_password'];
 
     public function scopeFilter($query, $filters) {
         $query->when($filters['name'] ?? false, function($query, $search){
