@@ -14,10 +14,11 @@ class UserprofileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($userProfile) //muka depan
+    public function index() //muka depan
     {
         //
-        $data['user_profile'] = userprofile::find($userProfile);
+        $data['user_detail'] = userprofile::find(1);//hardcode
+        $data['disabled'] = "disabled";
         return view('userprofile.index',$data);
     }
 
@@ -90,9 +91,12 @@ class UserprofileController extends Controller
      * @param  \App\Models\userprofile  $userprofile
      * @return \Illuminate\Http\Response
      */
-    public function edit(userprofile $userprofile)
+    public function edit( $userprofile)
     {
         //
+        $data['user_detail'] = userprofile::find($userprofile);
+        //$data['disabled'] = " ";
+        return view('userprofile.edit',$data);
     }
 
     /**
@@ -102,9 +106,38 @@ class UserprofileController extends Controller
      * @param  \App\Models\userprofile  $userprofile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, userprofile $userprofile)
+    public function update(Request $request, $userprofile)
     {
         //
+        //dd("masuk");
+        $validate = $request->validate([
+            'name'=>'required',
+            'user_role'=>'required',
+            'user_email'=>'required',
+            'user_name'=>'required',
+            //'user_password'=>'required',
+        ],[
+            'name.required'=>' Name is required',
+            'user_role.required'=>'required',
+            'user_email.required'=>'required',
+            'user_name.required'=>'required',
+            //'user_password.required'=>'required',
+        ]);
+
+        try{
+            //$userDetail->update($validate);
+            $data=[
+                'name' => $request->name,
+                'user_role'=>$request->user_role,
+                'user_email'=>$request->user_email,
+                'user_name'=>$request->user_name,
+                //'user_password'=> Hash::make($request->user_password),
+            ];
+            userprofile::where('id',$userprofile)->update($data);
+            return redirect(route('userprofile.index'))->withSucces('Berjaya Kemaskini');
+        }catch(\Throwable $th){
+            return back()->withError('Something when wrong!');
+        }
     }
 
     /**
