@@ -123,7 +123,7 @@ class UserDetailController extends Controller
                 'user_name'=>$request->user_name,
                 'user_password'=>$request->user_password,
             ];
-            userDetail::where('userID',$userDetail)->update($data);
+            userDetail::where('id',$userDetail)->update($data);
             return redirect(route('userdetail.index'))->withSucces('Berjaya Kemaskini');
         }catch(\Throwable $th){
             return back()->withError('Something when wrong!');
