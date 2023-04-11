@@ -106,7 +106,7 @@ img {
                    
             </div>
             <button type="submit" class="btn btn-success" onclick="insert()">Submit</button>
-            <a class="btn btn-primary" href="javascript:history.go(-1)">Back</a>
+            <a class="btn btn-primary" href="{{route('index')}}">Back</a>
         </form>
         </div>
     </div>
