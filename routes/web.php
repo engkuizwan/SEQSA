@@ -25,7 +25,7 @@ use App\Http\Controllers\UserprofileController;
 
 Route::match(['get', 'head'], '/', function () {
     return view('index');
-});
+})->name('login');
 
 
 
