@@ -82,7 +82,8 @@ Route::get('/file_show/{file_id}', [FileController::class, 'show']);
 
 
 // **************************************************** F  U  N  C  T  I  O  N  S ************************************************
-Route::get('/functionindex', [FunctionController::class, 'index'])->name('functionindex');
+Route::get('/functionindex/{fileId}', [FunctionController::class, 'index'])->name('functionindex');
+// Route::resource('/functionindex', FunctionController::class);
 
 // Auth::routes();
 
