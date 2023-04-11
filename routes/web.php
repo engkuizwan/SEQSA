@@ -42,7 +42,7 @@ Route::get('/create', [ProjectController::class, 'create']);
 Route::post('/project_add', [ProjectController::class, 'store'])->name('projectstore');
 
 Route::prefix('project') ->group(function(){
-    Route::match(['get', 'head'],'/list', [ProjectController::class, 'index'])->name('project.admin');
+    Route::match(['post','get', 'head'],'/list', [ProjectController::class, 'index'])->name('project.admin');
     Route::get('/list/{user_id}', [ProjectController::class, 'indexuser'])->name('project.user');
 });
 
