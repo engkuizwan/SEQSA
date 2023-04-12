@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Function;
+use App\Models\M_Function;
 use Illuminate\Http\Request;
 
 class FunctionController extends Controller
@@ -12,9 +12,13 @@ class FunctionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($fileid="")
     {
-        //
+        $d['file_id'] = $file_id = decrypt($fileid);
+        $d['title'] = "Function";
+        $d['functionList'] = M_Function::filter($file_id)->get(); 
+
+        return view('function.senarai', $d);
     }
 
     /**
@@ -24,7 +28,7 @@ class FunctionController extends Controller
      */
     public function create()
     {
-        //
+        return view('function.create');
     }
 
     /**
@@ -35,7 +39,34 @@ class FunctionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'func_name'=>'required',
+            'user'=>'required',
+            'role'=>'required',
+            'file'=>'nullable',
+            //'user_password'=>'required',
+        ],[
+            'func_name.required'=>' Function Name is required',
+            'user.required'=>'User Name is required',
+            'role.required'=>'Role is required',
+            // 'file.required'=>'required',
+            //'user_password.required'=>'required',
+        ]);
+
+        try{
+            $file_id = $request->file;
+            $data=[
+                'function_name' => $request->func_name,
+                'userID'=>$request->user,
+                'roleID'=>$request->role,
+                'file_ID'=>$request->user_name,
+                //'user_password'=> Hash::make($request->user_password),
+            ];
+            $sql = M_Function::insert($data);
+            return redirect(route('functionindex', encrypt($file_id)))->withSucces('Berjaya Kemaskini');
+        }catch(\Throwable $th){
+            return back()->withError('Something when wrong!');
+        }
     }
 
     /**
@@ -46,7 +77,10 @@ class FunctionController extends Controller
      */
     public function show( $function)
     {
-        //
+        $d['funcDetail'] = M_Function::find($function);
+        $d['disabled'] = "disabled";
+
+        return view('function.detail', $d);
     }
 
     /**
@@ -55,9 +89,11 @@ class FunctionController extends Controller
      * @param  \App\Models\Function  $function
      * @return \Illuminate\Http\Response
      */
-    public function edit( $function)
+    public function edit($function)
     {
-        //
+        $d['funcDetail'] = M_Function::find($function);
+
+        return view('function.edit', $d);
     }
 
     /**
@@ -69,7 +105,35 @@ class FunctionController extends Controller
      */
     public function update(Request $request,  $function)
     {
-        //
+        $validate = $request->validate([
+            'func_name'=>'required',
+            'user'=>'required',
+            'role'=>'required',
+            'file'=>'nullable',
+            //'user_password'=>'required',
+        ],[
+            'func_name.required'=>' Function Name is required',
+            'user.required'=>'User Name is required',
+            'role.required'=>'Role is required',
+            // 'file.required'=>'required',
+            //'user_password.required'=>'required',
+        ]);
+
+        try{
+            $file_id = $request->file;
+            $data=[
+                'function_name' => $request->func_name,
+                'userID'=>$request->user,
+                'roleID'=>$request->role,
+                'file_ID'=>$request->file,
+                //'user_password'=> Hash::make($request->user_password),
+            ];
+            $sql = M_Function::where('functionID',$function)->update($data);
+            return redirect(route('functionindex', encrypt($file_id)))->withSucces('Berjaya Kemaskini');
+        }catch(\Throwable $th){
+            return back()->withError('Something when wrong!');
+            
+        }
     }
 
     /**
@@ -78,8 +142,14 @@ class FunctionController extends Controller
      * @param  \App\Models\Function  $function
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $function)
+    public function destroy(M_Function $function)
     {
-        //
+        $file_id = $_POST['function_id'];
+        try {
+            $function->delete();
+            return redirect(route('functionindex', encrypt($file_id)))->withSuccess('Berjaya Kemaskini');
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 }
