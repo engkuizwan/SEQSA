@@ -36,6 +36,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // **************************************************** U S E R P R O F I L E************************************************
 Route::resource('/userdetail', UserDetailController::class);
 
+
+// ****************************************************  U S E R  P R O F I L E ************************************************
+Route::resource('/userprofile', UserprofileController::class);
+// Route::post('/register', [UserprofileController::class,'create'])->name('register');
+
+
 // **************************************************** P  R  O  J  E  C  T ************************************************
 
 Route::get('/create', [ProjectController::class, 'create']);
@@ -88,7 +94,3 @@ Route::get('/functionindex/{fileId}', [FunctionController::class, 'index'])->nam
 // Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// ****************************************************  U S E R  P R O F I L E ************************************************
-Route::resource('/userprofile', UserprofileController::class);
-// Route::post('/register', [UserprofileController::class,'create'])->name('register');
