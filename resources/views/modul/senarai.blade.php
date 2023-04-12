@@ -83,7 +83,7 @@
 
         @foreach ($file as $item )
         <tr>
-          <td><a href="">{{$item->file_name}}</a></td>
+          <td><a href="{{ route('functionindex', encrypt($item->file_ID)) }}">{{$item->file_name}}</a></td>
           <td>{{$item->file_type}}</td>
           <td>{{$item->created_at}}</td>
           <td align="center">
