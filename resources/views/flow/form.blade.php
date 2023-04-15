@@ -45,7 +45,8 @@
                     </div>
 
                 </div>
-
+                @if ($flow != null)
+                
                 @foreach (json_decode($flow->all_id, true) as $item )
 
                     @if ($item['type']=='file')
@@ -138,6 +139,10 @@
                     @endif
                     
                 @endforeach
+
+                @endif
+
+                
                 
                 {{-- <div class="card" style="padding: 20px;background-color: hsl(197, 92%, 90%);  ">
                     <div class="form-group">

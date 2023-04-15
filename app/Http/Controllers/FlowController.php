@@ -65,6 +65,7 @@ class FlowController extends Controller
         // dd($modul_id);
         $modul = Modul::where('modul_id', $modul_id)->get();
         $project_id = $modul[0]->project_id;
+        $d['flow'] = null;
         // dd($project_id[0]->project_id);
         $d['modul_id'] = $modul_id;
         $d['all_file'] = File::where('projectID',$project_id)->get();
