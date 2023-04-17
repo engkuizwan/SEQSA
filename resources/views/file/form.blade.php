@@ -18,11 +18,11 @@
 
             <div class="form-group">
                 <label for="">File Type</label>
-                <select name="file_type" id="file_type" class="form-control">
+                <select {{$show??""==1?"disabled":""}} name="file_type" id="file_type" class="form-control">
                     <option selected>Select Type Of File</option>
                     @foreach ($type_file as $item )
 
-                    <option value="{{$item->name}}">{{$item->name}}</option>
+                    <option <?=$file->file_type??'' == $item->name? "selected":"" ?> value="{{$item->name}}">{{$item->name}}</option>
                         
                     @endforeach
                 </select>

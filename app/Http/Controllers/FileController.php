@@ -69,6 +69,7 @@ class FileController extends Controller
     {
         $d['file'] = File::find($id);
         $d['show'] = 1;
+        $d['type_file'] = assetlookup::where(['category'=>'type of file'])->get();
 
         return view('file.form',$d);
     }
@@ -83,6 +84,7 @@ class FileController extends Controller
     {
         $d['file'] = File::find($id);
         $d['edit'] = 1;
+        $d['type_file'] = assetlookup::where(['category'=>'type of file'])->get();
 
         return view('file.form',$d);
     }
