@@ -125,7 +125,8 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request);
+        // dd($request->all());
+        // dd($id);
         $validate = $request->validate([
             'project_name' => 'required',
             'project_framework' => 'required',

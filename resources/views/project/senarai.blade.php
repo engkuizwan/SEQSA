@@ -21,7 +21,7 @@
         <thead>
             <tr>
               <th style="width:20%;">Project Name</th>
-              <th style="width:20%;">Team Members</th>
+              <th style="width:20%;">Framework</th>
               <th style="width:20%;">Project Description</th>
               <th style="text-align: center;width:20%;">Status</th>
               <th style="text-align: center;width:20%;">Action</th>
@@ -41,7 +41,7 @@
                     <ul class="list-inline">
                         <li class="list-inline-item">
                             {{-- <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar.png"> --}}
-                            {{$project->user_id}}
+                            {{$project->project_framework}}
                         </li>
                     </ul>
                 </td>
