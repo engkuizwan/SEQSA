@@ -13,7 +13,7 @@ class File extends Model
     protected $table = 'file';
     protected $primaryKey = 'file_ID';
     protected $fillable = [
-        'file_name','file_type','project_id'
+        'file_name','file_type','projectID'
     ];
 
     

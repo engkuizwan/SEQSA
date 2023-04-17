@@ -15,6 +15,21 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+
+            <div class="form-group">
+                <label for="">File Type</label>
+                <select name="file_type" id="file_type" class="form-control">
+                    <option selected>Select Type Of File</option>
+                    @foreach ($type_file as $item )
+
+                    <option value="{{$item->name}}">{{$item->name}}</option>
+                        
+                    @endforeach
+                </select>
+                @error('file_name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
            
 
             <button type="submit" class="btn {{$edit??""==1?'btn-warning':'btn-success'}}">{{$edit??""==1?"Edit":"Submit"}}</button>

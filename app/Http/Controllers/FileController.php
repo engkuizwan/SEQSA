@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\File;
+use App\Models\assetlookup;
 use Illuminate\Http\Request;
 
 class FileController extends Controller
@@ -25,7 +26,8 @@ class FileController extends Controller
     public function create()
     {
         //
-        return view('file.form');
+        $d['type_file'] = assetlookup::where(['category'=>'type of file'])->get();
+        return view('file.form', $d);
     }
 
     /**
@@ -38,6 +40,7 @@ class FileController extends Controller
     {
         
         // $file = new File;
+        // dd($request->all());
         try {
 
             // $file->file_name = $request->file_name;
@@ -45,7 +48,8 @@ class FileController extends Controller
             // $file->save();
             File::create([
                 'file_name' => $request->file_name,
-                'projectID' => $request->project_id,
+                'file_type' => $request->file_type,
+                'projectID' => $request->project_id 
             ]);
             return redirect(route('modulindex', encrypt($request->project_id)))->withSuccess('Data successfully inserted');
         } catch (\Throwable $th) {
