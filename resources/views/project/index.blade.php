@@ -46,6 +46,17 @@
         });
       }
 
+
+      function view(id){
+        // alert(id);
+        // var id1 = id;
+        $.get("{{ url('project_view') }}/"+id, {}, function(data,status){
+          $('#page').html(data);
+          $('#modal').modal('show');
+          $('#modallable').html('Update Project');
+        });
+      }
+
       
 
 

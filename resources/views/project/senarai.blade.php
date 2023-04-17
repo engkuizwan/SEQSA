@@ -55,7 +55,7 @@
 
                   <ul class="list-inline">
                     <li class="list-inline-item">
-                      <a class="btn btn-primary btn-sm" href="#">
+                      <a onclick="view({{$project->projectID}})" class="btn btn-primary btn-sm" href="#">
                           <i class="fas fa-folder">
                           </i>
                           View

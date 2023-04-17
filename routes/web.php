@@ -60,6 +60,7 @@ Route::prefix('project') ->group(function(){
 Route::resource('newproject', ProjectController::class);
 Route::get('/project_list', [ProjectController::class, 'read']);
 Route::get('/project_show/{projectid}', [ProjectController::class, 'show']);
+Route::get('/project_view/{projectid}', [ProjectController::class, 'view']);
 Route::post('/project_update/{projectid}', [ProjectController::class, 'update']);
 Route::get('/project_list/{user_id}', [ProjectController::class, 'readuser']);
 
