@@ -92,7 +92,7 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            @if (! $show == 1)
+            @if (isset($show))
             <a type="button" class="btn btn-warning " onclick="update({{$project->projectID}})">Edit</a>
             @endif
 
