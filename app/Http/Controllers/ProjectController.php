@@ -93,6 +93,18 @@ class ProjectController extends Controller
         return view('project.edit',$d);
     }
 
+    public function view($id)
+    {
+        // dd($id);
+        $d['show'] = 1;
+        $d['project'] = M_project::find($id);
+        // $d['student2'] = Student::where(['student_religion'=> 'ISLAM'])->first();
+        // $d['gender'] = BankStatusHelper::getGender();
+        // dd($d);
+
+        return view('project.edit',$d);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
