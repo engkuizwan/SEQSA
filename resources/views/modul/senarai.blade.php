@@ -138,7 +138,7 @@
         $("#example2").DataTable({
           "responsive": true, "lengthChange": false, "autoWidth": false, 
           "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-          "pagelength":2
+          "pagelength":2,
           'order': []
         }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
 
@@ -152,6 +152,8 @@
           $('#project_id').val(project_id); //to set value
         });
       }
+
+  
 
       function createmodul(project_id){
         $.get("{{ route('modul.create') }}", {}, function(data,status){
