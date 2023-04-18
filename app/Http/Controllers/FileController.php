@@ -85,7 +85,7 @@ class FileController extends Controller
         $d['file'] = File::find($id);
         $d['edit'] = 1;
         $d['type_file'] = assetlookup::where(['category'=>'type of file'])->get();
-        $d['disable'] = 'disabled';
+        $d['disabled'] = 'disabled';
 
         return view('file.form',$d);
     }
