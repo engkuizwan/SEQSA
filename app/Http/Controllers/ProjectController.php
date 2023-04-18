@@ -85,6 +85,7 @@ class ProjectController extends Controller
     public function show($id)
     {
         // dd($id);
+        $d['show'] = 0;
         $d['project'] = M_project::find($id);
         // $d['student2'] = Student::where(['student_religion'=> 'ISLAM'])->first();
         // $d['gender'] = BankStatusHelper::getGender();
