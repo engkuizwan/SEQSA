@@ -22,7 +22,7 @@
                     <option selected>Select Type Of File</option>
                     @foreach ($type_file as $item )
 
-                    <option <?=$file->file_type??''== $item->name? "selected":"" ?> value="{{$item->name}}">{{$item->name}}</option>
+                    <option value="{{$item->name}}"  @selected(($file->file_type??'') ==  $item->name) >{{$item->name}}</option>
                         
                     @endforeach
                 </select>
