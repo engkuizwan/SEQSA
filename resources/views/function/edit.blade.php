@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form action="{{ route('function.update', $funcDetail) }}" method="POST">
+<form action="{{ route('function.update', $funcDetail->functionID) }}" method="POST">
     @csrf
     @method('put');
 

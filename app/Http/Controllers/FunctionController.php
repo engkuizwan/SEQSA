@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\File;
 use App\Models\M_Function;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FunctionController extends Controller
@@ -16,7 +18,7 @@ class FunctionController extends Controller
     {
         $d['file_id'] = $file_id = decrypt($fileid);
         $d['title'] = "Function";
-        $d['functionList'] = M_Function::filter($file_id)->get(); 
+        $d['functionList'] = M_Function::getAllFunc($file_id);
 
         return view('function.senarai', $d);
     }
@@ -28,7 +30,11 @@ class FunctionController extends Controller
      */
     public function create()
     {
-        return view('function.create');
+        $file_id = decrypt($_GET['id']);
+        $d['file'] = File::where(['file_id' => $file_id])->first();
+        $d['user'] = User::all()->pluck('name', 'id');
+
+        return view('function.create', $d);
     }
 
     /**
@@ -41,14 +47,16 @@ class FunctionController extends Controller
     {
         $validate = $request->validate([
             'func_name'=>'required',
+            'func_desc'=>'required',
             'user'=>'required',
-            'role'=>'required',
+            // 'role'=>'required',
             'file'=>'nullable',
             //'user_password'=>'required',
         ],[
             'func_name.required'=>' Function Name is required',
+            'func_desc.required'=>' Function Description is required',
             'user.required'=>'User Name is required',
-            'role.required'=>'Role is required',
+            // 'role.required'=>'Role is required',
             // 'file.required'=>'required',
             //'user_password.required'=>'required',
         ]);
@@ -57,8 +65,9 @@ class FunctionController extends Controller
             $file_id = $request->file;
             $data=[
                 'function_name' => $request->func_name,
+                'functionDesc' => $request->func_desc,
                 'userID'=>$request->user,
-                'roleID'=>$request->role,
+                // 'roleID'=>$request->role,
                 'file_ID'=>$request->user_name,
                 //'user_password'=> Hash::make($request->user_password),
             ];
@@ -75,9 +84,9 @@ class FunctionController extends Controller
      * @param  \App\Models\Function  $function
      * @return \Illuminate\Http\Response
      */
-    public function show( $function)
+    public function show($function)
     {
-        $d['funcDetail'] = M_Function::find($function);
+        $d['funcDetail'] = M_Function::getFunc($function);
         $d['disabled'] = "disabled";
 
         return view('function.detail', $d);
@@ -91,7 +100,8 @@ class FunctionController extends Controller
      */
     public function edit($function)
     {
-        $d['funcDetail'] = M_Function::find($function);
+        $d['funcDetail'] = M_Function::getFunc($function);
+        $d['user'] = User::all()->pluck('name', 'id');
 
         return view('function.edit', $d);
     }
@@ -107,26 +117,25 @@ class FunctionController extends Controller
     {
         $validate = $request->validate([
             'func_name'=>'required',
+            'func_desc' => 'required',
             'user'=>'required',
-            'role'=>'required',
+            // 'role'=>'required',
             'file'=>'nullable',
-            //'user_password'=>'required',
         ],[
             'func_name.required'=>' Function Name is required',
+            'func_desc.required'=>' Function Description is required',
             'user.required'=>'User Name is required',
-            'role.required'=>'Role is required',
+            // 'role.required'=>'Role is required',
             // 'file.required'=>'required',
-            //'user_password.required'=>'required',
         ]);
 
         try{
             $file_id = $request->file;
             $data=[
                 'function_name' => $request->func_name,
+                'functionDesc' => $request->func_desc,
                 'userID'=>$request->user,
-                'roleID'=>$request->role,
-                'file_ID'=>$request->file,
-                //'user_password'=> Hash::make($request->user_password),
+                // 'file_ID'=>$request->file,
             ];
             $sql = M_Function::where('functionID',$function)->update($data);
             return redirect(route('functionindex', encrypt($file_id)))->withSucces('Berjaya Kemaskini');
