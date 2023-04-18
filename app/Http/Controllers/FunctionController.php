@@ -90,6 +90,7 @@ class FunctionController extends Controller
     public function show($function)
     {
         $d['funcDetail'] = M_Function::getFunc($function);
+        $d['user'] = User::all()->pluck('name', 'id');
         $d['disabled'] = "disabled";
 
         return view('function.detail', $d);

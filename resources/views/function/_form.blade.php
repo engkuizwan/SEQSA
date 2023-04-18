@@ -24,7 +24,7 @@
     <div class="row mb-3">
         <label for="name" class="col-sm-2 col-form-label">User Name</label>
         <div class="col-sm-4">
-            <select name="user" id="user" class="form-control @error('user') is-invalid @enderror">
+            <select name="user" id="user" class="form-control @error('user') is-invalid @enderror" {{ $disabled??'' }}>
                     <option value="">- Please Choose - </option>
                 @foreach ($user as $key=>$val)
                     <option {{(($funcDetail->name??'')==$val?'selected':'')}} value="{{$key}}" >{{$val}}</option>
@@ -51,7 +51,7 @@
     <div class="row mb-3">
         <label for="name" class="col-sm-2 col-form-label">File Name</label>
         <div class="col-sm-4">
-            <select name="file" id="file" class="form-control" @readonly(true)>
+            <select name="file" id="file" class="form-control" @readonly(true) {{ $disabled??'' }}>
                 <option value="{{old('file')??($funcDetail->file_ID??($file->file_ID??''))}}">{{old('file')??($funcDetail->file_name??($file->file_name??''))}}</option>
             </select>
         </div>
