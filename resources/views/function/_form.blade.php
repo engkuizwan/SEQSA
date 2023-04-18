@@ -50,8 +50,10 @@
     </div> --}}
     <div class="row mb-3">
         <label for="name" class="col-sm-2 col-form-label">File Name</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="file" name="file" placeholder="Index.php" value="{{old('file')??($funcDetail->file_name??($file->file_name??''))}}"  @readonly(true)>
+        <div class="col-sm-4">
+            <select name="file" id="file" class="form-control" @readonly(true)>
+                <option value="{{old('file')??($funcDetail->file_ID??($file->file_ID??''))}}">{{old('file')??($funcDetail->file_name??($file->file_name??''))}}</option>
+            </select>
         </div>
     </div>
 </div>

@@ -3,9 +3,9 @@
 @section('content')
 
 <div class="card">
-<div class="card-header">
-    <h3 class="card-title">Files</h3>
-</div>
+{{-- <div class="card-header">
+    <h3 class="card-title">{{$funcName??''}}</h3>
+</div> --}}
 <div class="card-body">
     {{-- <button class="btn btn-success float-right" onclick="createfile({{$file_id}})">Add New Function</button> --}}
     <a href="{{ route("function.create", "id=".encrypt($file_id)) }}" class="btn btn-success float-right">Add New Function</a>
@@ -32,7 +32,7 @@
                         <form action="{{ route('function.destroy', $item->functionID) }}" method="post">
                             @csrf
                             @method('delete')
-                            <input type="hidden" name='function_id' value="{{$item->functionID}}">
+                            <input type="hidden" name='function_id' value="{{$file_id}}">
                             <button type="submit" class="btn btn-danger">delete</button>
                         </form>
                     </td>

@@ -17,8 +17,11 @@ class FunctionController extends Controller
     public function index($fileid="")
     {
         $d['file_id'] = $file_id = decrypt($fileid);
-        $d['title'] = "Function";
         $d['functionList'] = M_Function::getAllFunc($file_id);
+        $file = File::where(['file_id' => $file_id])->first();
+
+        // $d['funcName'] = $file->file_name;
+        $d['title'] = "File " . $file->file_name;
 
         return view('function.senarai', $d);
     }
@@ -66,9 +69,9 @@ class FunctionController extends Controller
             $data=[
                 'function_name' => $request->func_name,
                 'functionDesc' => $request->func_desc,
-                'userID'=>$request->user,
+                'userID' => $request->user,
                 // 'roleID'=>$request->role,
-                'file_ID'=>$request->user_name,
+                'file_ID' => $request->file,
                 //'user_password'=> Hash::make($request->user_password),
             ];
             $sql = M_Function::insert($data);
