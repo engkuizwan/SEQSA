@@ -20,24 +20,30 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($functionList as $item)
-                <tr>
-                    <td>{{$item->function_name}}</td>
-                    <td>{{$item->functionDesc}}</td>
-                    <td>{{$item->name}}</td>
-                    <td>{{$item->created_at}}</td>
-                    <td align="center">
-                        <a href="{{ route('functionShow', $item->functionID) }}" class="btn btn-primary btn-sm">View</a>
-                        <a href="{{ route('function.edit', $item->functionID) }}" class="btn btn-info btn-sm">Edit</a>
-                        <form action="{{ route('function.destroy', $item->functionID) }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <input type="hidden" name='function_id' value="{{$file_id}}">
-                            <button type="submit" class="btn btn-danger">delete</button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
+                @if ($functionList[0]??'')
+                    @foreach ($functionList as $item)
+                    <tr>
+                        <td>{{$item->function_name}}</td>
+                        <td>{{$item->functionDesc}}</td>
+                        <td>{{$item->name}}</td>
+                        <td>{{$item->created_at}}</td>
+                        <td align="center">
+                            <a href="{{ route('functionShow', $item->functionID) }}" class="btn btn-primary btn-sm">View</a>
+                            <a href="{{ route('function.edit', $item->functionID) }}" class="btn btn-info btn-sm">Edit</a>
+                            <form action="{{ route('function.destroy', $item->functionID) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <input type="hidden" name='function_id' value="{{$file_id}}">
+                                <button type="submit" class="btn btn-danger">delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                @else
+                    <tr align="center">
+                        <td colspan="5"> No Data! </td>
+                    </tr>
+                @endif
             </tbody>
         </table>
     </div>
