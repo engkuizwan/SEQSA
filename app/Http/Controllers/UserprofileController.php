@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\assetlookup;
+use App\Models\userDetail;
 use App\Models\userprofile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,8 @@ class UserprofileController extends Controller
     public function index() //muka depan
     {
         //
-        $data['user_detail'] = userprofile::find(1);//hardcode
+        $data['user_detail'] = userDetail::find(1);//hardcode
+        $data['user_role'] = assetlookup::where(['category'=>'user role'])->get();
         $data['disabled'] = "disabled";
         return view('userprofile.index',$data);
     }
@@ -31,7 +33,7 @@ class UserprofileController extends Controller
     {
         //
         // $data['disabled'] = " ";
-        $data['type_file'] = assetlookup::where(['category'=>'type of file'])->get();
+        $data['user_role'] = assetlookup::where(['category'=>'user role'])->get();
          return view('userprofile.create',$data);
     }
 
@@ -94,8 +96,9 @@ class UserprofileController extends Controller
     public function edit( $userprofile)
     {
         //
-        $data['user_detail'] = userprofile::find($userprofile);
+        $data['user_detail'] = userDetail::find($userprofile);
         //$data['disabled'] = " ";
+        $data['user_role'] = assetlookup::where(['category'=>'user role'])->get();
         return view('userprofile.edit',$data);
     }
 

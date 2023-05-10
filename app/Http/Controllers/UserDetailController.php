@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\userDetail;
+use App\Models\assetlookup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -18,6 +19,7 @@ class UserDetailController extends Controller
     {
         //
         //$data['user_detail'] = userDetail::all();
+        $data['user_role'] = assetlookup::where(['category'=>'user role'])->get();
         $data['user_detail'] = userDetail::filter(request(['name','user_email']))->paginate(10);
         return view('userdetail.index', $data);
     }
@@ -30,7 +32,9 @@ class UserDetailController extends Controller
     public function create()
     {
         //
-        return view('userdetail.create');
+         $data['user_role'] = assetlookup::where(['category'=>'user role'])->get();
+        // $data['user_detail'] = userDetail::filter(request(['name','user_email']))->paginate(10);
+        return view('userdetail.create', $data);
     }
 
     /**
@@ -86,6 +90,7 @@ class UserDetailController extends Controller
     public function edit( $userDetail)
     {
         //
+        $data['user_role'] = assetlookup::where(['category'=>'user role'])->get();
         $data['user_detail'] = userDetail::find($userDetail);
         return view('userdetail.edit',$data);
     }

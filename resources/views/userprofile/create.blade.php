@@ -69,15 +69,23 @@ img {
                 @enderror
 
             </div>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control @error('user_role') is-invalid @enderror" id="user_role" name="user_role" placeholder="Admin Role" value="{{old('user_role')??($user_detail->user_role??'')}}" >
+           
+            <div class="form-group">
+                <select {{$show??""==1?"disabled":""}} name="user_role" id="user_role" class="form-control @error('user_role') is-invalid @enderror" {{$disabled??''}}>
+                    <option selected>User Role</option>
+                    @foreach ($user_role as $item )
+
+                    <option value="{{$item->name}}"  @selected(($file->file_type??'') ==  $item->name) >{{$item->name}}</option>
+                        
+                    @endforeach
+                </select>
                 @error('user_role')
                     <span class="invalid-feedback" role="alert">
                         {{ $message }}
                     </span>
                 @enderror
-        
             </div>
+           
             <div class="input-group mb-3">
                 <input type="email" class="form-control @error('user_email') is-invalid @enderror" id="user_email" name="user_email" aria-describedby="emailHelp"placeholder="www@gmail.com" value='{{old('user_email')??($user_detail->user_email??'')}}' >
                 @error('user_email')

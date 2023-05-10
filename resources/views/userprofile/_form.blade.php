@@ -13,7 +13,14 @@
 <div class="row mb-3">
     <label for="user_role" class="col-sm-2 col-form-label">Role</label>
     <div class="col-sm-8">
-        <input type="text" class="form-control @error('user_role') is-invalid @enderror" id="user_role" name="user_role" placeholder="Admin" value="{{old('user_role')??($user_detail->user_role??'')}}" {{ $disabled??'' }} >
+        <select {{$show??""==1?"disabled":""}} name="user_role" id="user_role" class="form-control @error('user_role') is-invalid @enderror" {{$disabled??''}}>
+            <option selected>User Role</option>
+            @foreach ($user_role as $item )
+    
+            <option value="{{$item->name}}"  @selected(($user_detail->user_role??'') ==  $item->name) >{{$item->name}}</option>
+                
+            @endforeach
+        </select>
         @error('user_role')
             <span class="invalid-feedback" role="alert">
                 {{ $message }}

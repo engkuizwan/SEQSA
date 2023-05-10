@@ -14,7 +14,19 @@
             <div class="row mb-3">
                 <label for="user_role" class="col-sm-2 col-form-label">Role</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="user_role" name="user_role" placeholder="Role" value="{{request('user_role')}}">
+                    <select {{$show??""==1?"disabled":""}} name="user_role" id="user_role" class="form-control @error('user_role') is-invalid @enderror" {{$disabled??''}}>
+                        <option selected>User Role</option>
+                        @foreach ($user_role as $item )
+                
+                        <option value="{{$item->name}}"  @selected(($user_detail->user_role??'') ==  $item->name) >{{$item->name}}</option>
+                            
+                        @endforeach
+                    </select>
+                    @error('user_role')
+                        <span class="invalid-feedback" role="alert">
+                            {{ $message }}
+                        </span>
+                    @enderror
                 </div>
             </div>
             <div class="row mb-3">
